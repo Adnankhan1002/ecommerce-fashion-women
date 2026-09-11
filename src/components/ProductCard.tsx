@@ -23,13 +23,23 @@ export default function ProductCard({
 
   const liked = wishlist.includes(product.id);
 
-  const add = () =>
+  const add = () => {
     addToCart({
       product,
       quantity: 1,
       size: "M",
       color: product.colors[0],
     });
+  
+    window.dispatchEvent(
+      new CustomEvent("aurelia-toast", {
+        detail: {
+          message: "Added to your bag",
+          product: product.name,
+        },
+      })
+    );
+  };
 
   const discount = Math.max(
     0,

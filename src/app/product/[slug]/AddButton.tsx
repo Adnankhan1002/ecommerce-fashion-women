@@ -26,6 +26,15 @@ export default function AddButton({
 
     setDone(true);
 
+    window.dispatchEvent(
+      new CustomEvent("aurelia-toast", {
+        detail: {
+          message: "Added to your bag",
+          product: product.name,
+        },
+      })
+    );
+
     setTimeout(() => {
       setDone(false);
     }, 1800);
@@ -33,7 +42,6 @@ export default function AddButton({
 
   return (
     <div className="mt-7 grid w-full min-w-0 grid-cols-1 gap-3 sm:mt-8 sm:grid-cols-2">
-      {/* ADD TO CART */}
       <button
         type="button"
         onClick={handleAdd}
@@ -69,7 +77,6 @@ export default function AddButton({
         )}
       </button>
 
-      {/* BUY NOW */}
       <Link
         href="/cart"
         className="
