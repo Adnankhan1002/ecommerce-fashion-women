@@ -1,0 +1,14 @@
+import { notFound } from "next/navigation"; import Image from "next/image"; import Link from "next/link"; import { Star, Sparkles, Truck, RotateCcw } from "lucide-react"; import { products } from "@/data/products"; import AddButton from "./AddButton";
+export default async function ProductPage({params}:{params:{slug:string}}){const p=products.find(x=>x.slug===params.slug); if(!p)notFound(); return <main className="container py-10"><div className="text-xs text-black/40 mb-7"><Link href="/shop">Shop</Link> / {p.category}</div><div className="grid lg:grid-cols-2 gap-8 lg:gap-14"><div className="relative aspect-[3/4] overflow-hidden bg-[#eee5d9] group">
+      <Image
+        src={p.images[0]}
+        alt={p.name}
+        fill
+        sizes="(max-width:1024px) 100vw, 50vw"
+        className="object-cover transition-transform duration-700 group-hover:scale-[1.035]"
+        priority
+      />
+      <div className="absolute bottom-4 left-4 bg-white/85 backdrop-blur px-3 py-2 text-[10px] tracking-[.18em]">
+        EDITORIAL VIEW
+      </div>
+    </div><div className="lg:pt-5"><p className="text-xs tracking-[.25em] text-burgundy">{p.occasion.toUpperCase()} · {p.category.toUpperCase()}</p><h1 className="serif text-5xl mt-3">{p.name}</h1><div className="flex items-center gap-2 mt-5 text-sm"><Star size={16} fill="currentColor"/> {p.rating} <span className="text-black/40">({p.reviews} reviews)</span></div><div className="flex items-baseline gap-3 mt-6"><span className="text-2xl">₹{p.price.toLocaleString("en-IN")}</span><span className="line-through text-black/35">₹{p.originalPrice.toLocaleString("en-IN")}</span></div><div className="mt-4 inline-flex items-center gap-2 text-burgundy text-sm bg-burgundy/5 px-3 py-2"><Sparkles size={15}/> You'll earn {p.magicCoins} Magic Coins</div><p className="text-black/60 leading-7 mt-7">{p.description}</p><div className="mt-7"><div className="text-sm font-medium mb-2">Color</div><div className="flex gap-2">{p.colors.map(c=><button key={c} className="border px-4 py-2 text-xs">{c}</button>)}</div></div><div className="mt-6"><div className="text-sm font-medium mb-2">Size</div><div className="flex flex-wrap gap-2">{p.sizes.map(s=><button key={s} className="border px-4 py-2 text-xs">{s}</button>)}</div></div><AddButton product={p}/><div className="grid sm:grid-cols-2 gap-3 mt-8 text-xs text-black/60"><div className="p-4 bg-white"><Truck size={17} className="mb-2"/>Delivery in 3–5 days</div><div className="p-4 bg-white"><RotateCcw size={17} className="mb-2"/>Easy returns</div></div><div className="mt-8 border-t pt-6 text-sm leading-7"><b>Product information</b><p className="text-black/55 mt-2">Fabric: {p.fabric} · Fit: Regular · Pattern: {p.tags[1].toLowerCase()} · Country of origin: India</p></div></div></div></main>}
