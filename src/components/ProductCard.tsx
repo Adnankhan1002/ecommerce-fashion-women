@@ -40,7 +40,7 @@ export default function ProductCard({
       <div className="relative aspect-[3/4] overflow-hidden rounded-2xl bg-[#eee5d9]">
       <div
   onClick={() => onPreview(product)}
-  className="absolute inset-0 cursor-pointer"
+  className="absolute inset-0 z-0 cursor-pointer"
 >
   <motion.div
     layoutId={`product-image-${product.id}`}
